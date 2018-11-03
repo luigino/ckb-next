@@ -723,8 +723,7 @@ release:
     // If the HID handles are already opened, set up the device
     if(HAS_ALL_HANDLES(kb))
         setupusb(kb);
-    else
-        pthread_mutex_unlock(devmutex + index);
+    pthread_mutex_unlock(devmutex + index);
     *rm_notify = kb->rm_notify;
     return kb;
 
@@ -876,9 +875,8 @@ static usbdevice* add_hid(hid_dev_t handle, io_object_t** rm_notify){
     if(HAS_ALL_HANDLES(kb))
         // If all handles have been opened, we're ready to set up the device
         setupusb(kb);
-    else
-        // Otherwise, return and keep going
-        pthread_mutex_unlock(devmutex + index);
+    // Otherwise, return and keep going
+    pthread_mutex_unlock(devmutex + index);
     *rm_notify = kb->rm_notify + IFACE_MAX + 1 + handle_idx;
     return kb;
 
