@@ -124,6 +124,7 @@ if (MACOS OR LINUX OR WINDOWS)
               ckbupdaterwidget.cpp
               colorbutton.cpp
               colormap.cpp
+              daemonpipe.cpp
               extrasettingswidget.cpp
               fwupgradedialog.cpp
               gradientbutton.cpp
@@ -165,6 +166,7 @@ if (MACOS OR LINUX OR WINDOWS)
               ckbupdaterwidget.h
               colorbutton.h
               colormap.h
+              daemonpipe.h
               extrasettingswidget.h
               fwupgradedialog.h
               gradientbutton.h
