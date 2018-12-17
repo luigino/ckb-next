@@ -40,6 +40,7 @@ ushort models[N_MODELS] = {
     // Mice
     P_M65,
     P_M65_PRO,
+    P_M95,
     P_GLAIVE,
     P_SABRE_O,
     P_SABRE_L,
@@ -129,6 +130,8 @@ const char* product_str(short product){
         return "strafe";
     if(product == P_STRAFE_MK2)
         return "strafe_mk2";
+    if(product == P_M95)
+        return "m95";
     if(product == P_M65 || product == P_M65_PRO)
         return "m65";
     if(product == P_SABRE_O || product == P_SABRE_L || product == P_SABRE_N || product == P_SABRE_O2)
@@ -164,11 +167,14 @@ const char* product_str(short product){
 ///
 static const devcmd* get_vtable(short vendor, short product){
     // return IS_MOUSE(vendor, product) ? &vtable_mouse : !IS_LEGACY(vendor, product) ? &vtable_keyboard : &vtable_keyboard_nonrgb;
-    if(IS_MOUSE(vendor, product))
-        return &vtable_mouse;
-    else if(IS_MOUSEPAD(vendor, product) || product == P_ST100)
+    if(IS_MOUSE(vendor, product)) {
+        if(IS_LEGACY(vendor, product))
+            return &vtable_mouse_legacy;
+        else
+            return &vtable_mouse;
+    } else if(IS_MOUSEPAD(vendor, product) || product == P_ST100) {
         return &vtable_mousepad;
-    else {
+    } else {
         if(IS_LEGACY(vendor, product))
             return &vtable_keyboard_legacy;
         else
